@@ -1,5 +1,6 @@
 package primary
 
+//ListNode 节点
 type ListNode struct {
 	Val  int
 	Next *ListNode
@@ -81,4 +82,17 @@ func isPalindrome(head *ListNode) bool {
 		}
 	}
 	return true
+}
+
+//LC环形链表
+func hasCycle(head *ListNode) bool {
+	m := make(map[*ListNode]int)
+	for head != nil {
+		if _, ok := m[head]; ok {
+			return true
+		}
+		m[head] = 1
+		head = head.Next
+	}
+	return false
 }
