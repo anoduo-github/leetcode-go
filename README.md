@@ -5,4 +5,10 @@ study and practice
 
 ## primary 初级算法
 
+# question 题库
+
+# offer 剑指offer
+
+# nowcoder 牛客
+
 
