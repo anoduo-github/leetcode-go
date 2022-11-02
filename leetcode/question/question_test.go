@@ -1,10 +1,11 @@
 package question
 
 import (
+	"fmt"
 	"testing"
 )
 
 func TestQuestion(t *testing.T) {
-	res := maxProduct152([]int{2, 3, -2, 4})
-	t.Log(res)
+	res := maximumSwap(2736)
+	fmt.Println(res)
 }
