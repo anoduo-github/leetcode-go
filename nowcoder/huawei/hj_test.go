@@ -5,8 +5,5 @@ import (
 )
 
 func TestHJ(t *testing.T) {
-	HJ43([][]int{
-		{0, 0},
-		{0, 0},
-	})
+	HJ71()
 }

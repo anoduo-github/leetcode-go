@@ -1,51 +1,52 @@
 package huawei
 
+import "fmt"
+
 //HJ71 字符串通配符
 func HJ71() {
 	/* var reg string
 	fmt.Scanln(&reg)
 	var s string
-	fmt.Scanln(&s)
+	fmt.Scanln(&s) */
 
-	res := false //默认失败
-	i, j := 0, 0
-	for i < len(reg) && j < len(s) {
-		if reg[i] == s[j] {
-			i++
-			j++
-			continue
+	reg := "h*h*ah**ha*h**h***hha"
+	s := "hh"
+
+	//递归
+
+	var dfs func(i, j int) bool
+	dfs = func(i, j int) bool {
+		if i == len(reg) && j == len(s) {
+			return true
+		} else if i == len(reg) || j == len(s) {
+			return false
 		}
-		if reg[i] != s[j] && (reg[i] != '?' || reg[i] != '*') {
-			break
-		}
+		//两个字符对应的上，相等或者一个为？
 		if reg[i] == '?' {
-			i++
-			j++
+			if !(s[j] >= '0' && s[j] <= '9') && !(s[j] >= 'a' && s[j] <= 'z') {
+				return false
+			}
+			return dfs(i+1, j+1)
+		} else if reg[i] == s[j] {
+			return dfs(i+1, j+1)
 		} else if reg[i] == '*' {
-			//遍历找到reg下一个不为*的字符，统计里面的*和？数量
-			x := 1         //表示*的数量，这里加上i的*
-			y := 0         //表示？的数量
-			index := i + 1 //i右边的第一个下标
-			for index < len(reg) {
-				if reg[index] == '*' {
-					x++
-					index++
-				} else if reg[index] == '?' {
-					y++
-					index++
-				} else {
-					break
-				}
+			//为*，一个都不匹配
+			if dfs(i+1, j) {
+				return true
 			}
-			//遍历s 找到与*后第一个字母相同的字母，且跨度不能小于x+y
-			cur := index //跳过中间长度x+y
-			for cur < len(s) {
-				if s[cur] == reg[index] {
-					//判断长度
-					cur++
-				}
+			//至少匹配一个，此时要求s[j]不能是其他字符
+			if !(s[j] >= '0' && s[j] <= '9') && !(s[j] >= 'a' && s[j] <= 'z') {
+				return false
 			}
+			//为*，匹配一个位
+			if dfs(i+1, j+1) {
+				return true
+			}
+			//为*，匹配多个位
+			return dfs(i, j+1)
 		}
+		return false
 	}
-	fmt.Println(res) */
+
+	fmt.Println(dfs(0, 0))
 }
